@@ -2,7 +2,6 @@ import React from 'react';
 import { Spin } from 'antd';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import ValideRoute from './ValideRoute';
-import './style';
 
 const Dashboard = React.lazy(() => import('@component/Layout/Dashboard'));
 const Login = React.lazy(() => import('@component/User/Login'));

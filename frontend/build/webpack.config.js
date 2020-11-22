@@ -25,7 +25,7 @@ module.exports = {
                 exclude: /node_modules/,
             },
             {
-                test: /\.less$/,
+                test: /\.(less|css)$/,
                 // use: [MiniCssExtractPlugin.loader, 'css-loader', 'less-loader']
                 use: ['style-loader', 'css-loader', 'less-loader']
             }
@@ -74,7 +74,7 @@ module.exports = {
     ],
 
     resolve: {
-        extensions: ['.js', '.css', '.jsx', '.less'],
+        extensions: ['.js', '.css', '.jsx', '.less', '.css'],
         alias: {
             '@component': path.resolve(__dirname, '../src/components/'),
             '@request': path.resolve(__dirname, '../src/request/'),

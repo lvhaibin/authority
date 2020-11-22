@@ -1,9 +1,22 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { Spin, Card } from 'antd';
+import styled from 'styled-components';
 import { fetchUserRequest } from '@actions/user';
 import cookies from '@utils/cookies';
-import { Spin, Card } from 'antd';
-import './userInfo.less';
+
+const SpainWrapper = styled.div`
+    text-align: center;
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: 4px;
+    margin-bottom: 20px;
+    padding: 30px 50px;
+    margin: 20px 0;
+`;
+
+const PaddingWrapper = styled.div`
+    padding: 30px;
+`;
 
 export default function UserInfo() {
     const dispatch = useDispatch();
@@ -20,18 +33,18 @@ export default function UserInfo() {
     const Info = (() => {
         if (loading) {
             return (
-                <div className="loading">
+                <SpainWrapper>
                     <Spin />
-                </div>
+                </SpainWrapper>
             )
         }
         return (
-            <div className="pd" >
+            <PaddingWrapper>
                 <Card title="用户信息">
                     <p>用户名: {userName}</p>
                     <p>手机号: {phone}</p>
                 </Card>
-            </div>
+            </PaddingWrapper>
         )
     })
 

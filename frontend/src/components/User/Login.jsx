@@ -3,6 +3,12 @@ import { useHistory, Link } from "react-router-dom";
 import { Form, Input, Button, Checkbox, message } from 'antd';
 import { login } from '@request/user';
 import cookies from '@utils/cookies';
+import styled from 'styled-components';
+
+const LoginWrapper = styled.div`
+    width: 600px;
+    margin: 100px auto;
+`;
 
 const layout = {
     labelCol: {
@@ -38,7 +44,7 @@ export default function Login() {
     };
 
     return (
-        <div className="login">
+        <LoginWrapper>
             <Form
                 {...layout}
                 name="basic"
@@ -83,7 +89,7 @@ export default function Login() {
                     <Link to="/register">注册</Link>
                 </Form.Item>
             </Form>
-        </div>
+        </LoginWrapper>
 
     );
 }

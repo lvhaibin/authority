@@ -3,7 +3,6 @@ import { ConfigProvider } from 'antd';
 import zhCN from 'antd/es/locale/zh_CN';
 import moment from 'moment';
 import 'moment/locale/zh-cn';
-import './style';
 moment.locale('zh-cn');
 import { Redirect, Route, Link, Switch, useHistory } from 'react-router-dom'
 import { Layout as AntdLayout, Menu, Spin, Avatar, Dropdown } from 'antd';
@@ -49,7 +48,7 @@ export default function Dashboard() {
 
     return (
         <ConfigProvider locale={zhCN}>
-            <AntdLayout>
+            <AntdLayout style={{ height: '100%'}}>
                 <Header className="header">
                     <div style={{ display: 'flex', justifyContent: 'flex-end', paddingTop: 15 }}>
                         <Dropdown overlay={menu} placement="bottomLeft" arrow>
