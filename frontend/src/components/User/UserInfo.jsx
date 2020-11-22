@@ -1,18 +1,10 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Spin, Card } from 'antd';
 import styled from 'styled-components';
+import { Card } from 'antd';
 import { fetchUserRequest } from '@actions/user';
+import Loading from '@component/Loading/Loading';
 import cookies from '@utils/cookies';
-
-const SpainWrapper = styled.div`
-    text-align: center;
-    background: rgba(0, 0, 0, 0.05);
-    border-radius: 4px;
-    margin-bottom: 20px;
-    padding: 30px 50px;
-    margin: 20px 0;
-`;
 
 const PaddingWrapper = styled.div`
     padding: 30px;
@@ -32,11 +24,7 @@ export default function UserInfo() {
 
     const Info = (() => {
         if (loading) {
-            return (
-                <SpainWrapper>
-                    <Spin />
-                </SpainWrapper>
-            )
+            return <Loading />
         }
         return (
             <PaddingWrapper>
@@ -45,6 +33,7 @@ export default function UserInfo() {
                     <p>手机号: {phone}</p>
                 </Card>
             </PaddingWrapper>
+            
         )
     })
 

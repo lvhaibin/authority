@@ -1,5 +1,7 @@
 import React from 'react';
 import { Spin } from 'antd';
+import Loading from '@component/Loading/Loading'
+
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import ValideRoute from './ValideRoute';
 
@@ -9,7 +11,6 @@ const Register = React.lazy(() => import('@component/User/Register'));
 
 
 export function App() {
-
     return (
         <React.Suspense fallback={<Spin />}>
             <Router>

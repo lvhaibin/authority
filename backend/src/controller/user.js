@@ -13,12 +13,12 @@ class User {
     async userInfo(ctx) {
         const name = ctx.query.name;
         if (name) {
-            const res = await query(`select user_name, phone from user where user_name='${escape(name)}';`);
+            const res = await query(`select username, phone from user where username='${escape(name)}';`);
             ctx.body = {
                 code: 0,
                 msg: 'success',
                 body: {
-                    name: res[0].user_name,
+                    name: res[0].username,
                     phone: res[0].phone
                 }
             }
@@ -33,7 +33,7 @@ class User {
 
     async login(ctx) {
         const { username, password } = ctx.request.body;
-        const res = await query(`select id, user_name, phone, password, email from user where user_name='${escape(username)}' or phone='${escape(username)}';`);
+        const res = await query(`select id, username, phone, password, email from user where username='${escape(username)}' or phone='${escape(username)}';`);
         if (!res || !res[0]) {
             ctx.body = {
                 code: 101,
@@ -47,13 +47,13 @@ class User {
                 body: null
             }
         } else if (res[0].password === md5(password)) {
-            const payload = { userName: res[0].user_name, id: res[0].id, email: res[0].email };
+            const payload = { userName: res[0].username, id: res[0].id, email: res[0].email };
             const token = jwt.sign(payload, 'rbac_secret', { expiresIn: '12h' });
             ctx.body = {
                 code: 0,
                 msg: 'success',
                 body: {
-                    uame: res[0].user_name,
+                    uame: res[0].username,
                     uid: res[0].id,
                     email: res[0].email,
                     token
@@ -63,9 +63,9 @@ class User {
     }
 
     async register(ctx) {
-        const { username, password, phone, email, profile } = ctx.request.body;
+        const { username, password, phone, email, avatar } = ctx.request.body;
         const date = moment().format('YYYY/MM/DD');
-        const res = await query(`select id, user_name, phone, password, email from user where user_name='${escape(username)}' or phone='${escape(phone)}';`);
+        const res = await query(`select id, username, phone, password, email from user where username='${escape(username)}' or phone='${escape(phone)}';`);
         if (res && res[0]) {
             ctx.body = {
                 code: 101,
@@ -73,11 +73,8 @@ class User {
                 body: null
             }
         } else {
-            let curProfile = profile;
-            if (!profile) {
-                curProfile = 'demand';
-            }
-            const result = await query(`INSERT INTO user (user_name, password, phone, email, profile, created_at, updated_at) values ('${username}', '${md5(password)}', '${phone}', '${email}', '${curProfile}', '${date}', '${date}');`);
+            const curAvater = avatar || 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png';
+            const result = await query(`INSERT INTO user (username, password, avatar, phone, email, createdAt, updatedAt) values ('${username}', '${md5(password)}', '${curAvater}', '${phone}', '${email}', '${date}', '${date}');`);
             if (!result) {
                 ctx.body = {
                     code: 101,
