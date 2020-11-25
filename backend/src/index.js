@@ -23,8 +23,7 @@ app.use(koaBody())
                 const scheme = parts[0];
                 const token = parts[1];
                 if (/^Bearer$/i.test(scheme)) {
-                     try {
-                        //jwt.verify方法验证token是否有效
+                    try {
                          jwt.verify(token, 'rbac_secret', { complete: true }); 
                     } catch (error) {
                         ctx.body = {

@@ -2,7 +2,7 @@ import crypto from 'crypto';
 import jwt from 'jsonwebtoken';
 import moment from 'moment';
 import Sequelize from 'sequelize';
-import UserModal from '../modals/user.js';
+import UserModel from '../models/UserModel.js';
 
 function md5(data) {
     // 以md5的格式创建一个哈希值
@@ -13,7 +13,7 @@ function md5(data) {
 class User {
     async userInfo(ctx) {
         const name = ctx.query.name;
-        const userData = await UserModal.findOne({
+        const userData = await UserModel.findOne({
             where: {
                 username: name
             },
@@ -39,7 +39,7 @@ class User {
 
     async login(ctx) {
         const { username, password } = ctx.request.body;
-        const userData = await UserModal.findOne({
+        const userData = await UserModel.findOne({
             where: {
                 [Sequelize.Op.or]: [
                     { username: username },
@@ -78,7 +78,7 @@ class User {
 
     async register(ctx) {
         const { username, password, phone, email, avatar } = ctx.request.body;
-        const userData = await UserModal.findOne({
+        const userData = await UserModel.findOne({
             where: {
                 [Sequelize.Op.or]: [
                     { username: username },
@@ -95,7 +95,7 @@ class User {
                 body: null
             }
         } else {
-            const result = await UserModal.create({
+            const result = await UserModel.create({
                 username,
                 password: md5(password),
                 avatar: avatar || 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',

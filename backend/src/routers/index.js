@@ -1,20 +1,19 @@
-import User from '../controller/user.js';
-
+import userController from '../controller/userController.js';
 
 export const appRoutes = [
     {
         path: '/api/v1.0/user',
         method: 'get',
-        action: User.userInfo
+        action: userController.userInfo
     },
     {
         path: '/api/v1.0/login',
         method: 'post',
-        action: User.login
+        action: userController.login
     },
     {
         path: '/api/v1.0/register',
         method: 'post',
-        action: User.register
+        action: userController.register
     },
 ]

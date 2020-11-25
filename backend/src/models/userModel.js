@@ -1,7 +1,7 @@
 import sequelize from '../connection/sequelize.js';
 import Sequelize from 'sequelize';
 
-const UserModal = sequelize.define('user', {
+const UserModel = sequelize.define('user', {
     // 在这里定义模型属性
     id: {
         type: Sequelize.UUID,
@@ -43,4 +43,4 @@ const UserModal = sequelize.define('user', {
     }
 });
 
-export default UserModal;
+export default UserModel;
