@@ -1,45 +1,46 @@
 import sequelize from '../connection/sequelize.js';
 import Sequelize from 'sequelize';
+const { DataTypes } = Sequelize;
 
 const UserModel = sequelize.define('user', {
     // 在这里定义模型属性
     id: {
-        type: Sequelize.UUID,
+        type: DataTypes.UUID,
         primaryKey: true
     },
     username: {
-        type: Sequelize.STRING
+        type: DataTypes.STRING
     },
     password: {
-        type: Sequelize.STRING
+        type: DataTypes.STRING
     },
     avatar: {
-        type: Sequelize.STRING
+        type: DataTypes.STRING
     },
     phone: {
-        type: Sequelize.STRING
+        type: DataTypes.STRING
     },
     email: {
-        type: Sequelize.STRING
+        type: DataTypes.STRING
     },
     status: {
-        type: Sequelize.INTEGER,
+        type: DataTypes.INTEGER,
         defaultValue: 1,
         comment: '0: 无效,1:有效'
     },
     isAdmin: {
-        type: Sequelize.INTEGER,
+        type: DataTypes.INTEGER,
         defaultValue: 1,
-        comment: '0: 无效,1:有效'
+        comment: '0:超级管理员,1:普通管理员'
     },
     createdAt: {
-        type: Sequelize.DATEONLY
+        type: DataTypes.DATEONLY
     },
     updatedAt: {
-        type: Sequelize.DATEONLY
+        type: DataTypes.DATEONLY
     },
     roleId: {
-        type: Sequelize.INTEGER(11)
+        type: DataTypes.INTEGER(11)
     }
 });
 
