@@ -16,7 +16,7 @@ function* handleFetchUserRequest(params) {
     const res = yield call(userInfo, params);
     yield put(
         fetchUserSuccess({
-        data: res
+        data: res.dataValues || res
       })
     );
   } catch (e) {

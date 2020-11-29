@@ -2,9 +2,9 @@ import axios from 'axios';
 import { ajax } from './index';
 
 
-export const userInfo = name => ajax({
+export const userInfo = (name, uId = '') => ajax({
   method: 'GET',
-  url: `/api/v1.0/user?name=${name}`,
+  url: `/api/v1.0/user?name=${name}&uId=${uId}`,
   needToken: true,
 });
 
@@ -35,3 +35,9 @@ export const userAdd = params => ajax({
   needToken: true
 });
 
+export const userUpdate = params => ajax({
+  method: 'POST',
+  url: `/api/v1.0/user/update`,
+  data: params,
+  needToken: true
+});

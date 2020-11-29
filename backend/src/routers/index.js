@@ -26,4 +26,10 @@ export const appRoutes = [
         method: 'post',
         action: userController.add
     },
+
+    {
+        path: '/api/v1.0/user/update',
+        method: 'post',
+        action: userController.update
+    },
 ]

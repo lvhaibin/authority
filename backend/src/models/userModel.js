@@ -38,9 +38,6 @@ const UserModel = sequelize.define('user', {
     },
     updatedAt: {
         type: DataTypes.DATEONLY
-    },
-    roleId: {
-        type: DataTypes.INTEGER(11)
     }
 });
 

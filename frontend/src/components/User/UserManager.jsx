@@ -1,24 +1,28 @@
 import React, { useState, useEffect } from 'react';
-import { Table, Button, Modal, Select, Form, Input, message, Skeleton } from 'antd';
+import { Table, Button, Skeleton } from 'antd';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchUserListRequest, createUserRequest } from '@actions/user';
+import { fetchUserListRequest} from '@actions/user';
+import CreateUserModal from '@component/User/CreateUserModal';
 import styled from 'styled-components';
 
 const Wrapper = styled.div`
     padding: 30px;
 `;
 
-const layout = {
-    labelCol: { span: 4 },
-    wrapperCol: { span: 20 },
-};
-
 export default function UserManager() {
     const dispatch = useDispatch();
-    const [visible, setVisible] = useState(false);
     const [current, setCurrent] = useState(1);
     const [pageSize] = useState(10);
-    const [form] = Form.useForm();
+    const [visible, setVisible] = useState(false);
+    const [userId, setUserId] = useState('');
+    const [action, setAction] = useState('create');
+
+    const handleOnUpdate = (record) => {
+        setUserId(record.id);
+        setAction('update');
+        setVisible(true);
+    }
+
     const columns = [
         {
             title: '用户名',
@@ -73,11 +77,22 @@ export default function UserManager() {
             key: 'updatedAt',
             ellipsis: true,
         },
+        {
+            title: '操作',
+            key: 'operation',
+            fixed: 'right',
+            width: 100,
+            render: (text, record) => {
+                return (
+                    <a onClick={handleOnUpdate.bind(this, record)}>更新</a>
+                );
+            },
+          },
     ];
 
     useEffect(() => {
         loadData(current, pageSize)
-    }, [dispatch, current, pageSize])
+    }, [dispatch, current, pageSize]);
 
 
     const loadData = (page, size) => {
@@ -85,6 +100,7 @@ export default function UserManager() {
     }
 
     const openModal = () => {
+        setAction('create');
         setVisible(true);
     }
 
@@ -92,16 +108,7 @@ export default function UserManager() {
         return <Button type="primary" onClick={openModal}>新建</Button>
     }
 
-    const handleOk = () => {
-        form.validateFields().then((values) => {
-            dispatch(createUserRequest(values))
-        }).catch(() => {
-            message.warning('请重新检查表单！')
-        })
-        setVisible(false);
-    }
-
-    const handleCancel = () => {
+    const handleOnCancel = () => {
         setVisible(false);
     }
 
@@ -126,83 +133,7 @@ export default function UserManager() {
                     onChange={tableOnChange}
                 />
             </Skeleton>
-            <Modal
-                title="新建用户"
-                visible={visible}
-                onOk={handleOk}
-                onCancel={handleCancel}
-            >
-                <Form form={form} name="basic" {...layout}>
-                    <Form.Item
-                        label="用户名"
-                        name="username"
-                        rules={[
-                            {
-                                required: true,
-                                message: '请输入用户名！',
-                            },
-                        ]}
-                    >
-                        <Input />
-                    </Form.Item>
-
-                    <Form.Item
-                        name="phone"
-                        label="电话号码"
-                        rules={[
-                            {
-                                required: true,
-                                message: '请输入电话号码!'
-                            },
-                            {
-                                pattern: /^1[0-9]{10}/,
-                                message: '请输入正确的手机号!'
-                            }
-                        ]} >
-                        <Input addonBefore="+86 " style={{ width: '100%' }} />
-                    </Form.Item>
-
-                    <Form.Item
-                        name="email"
-                        label="邮箱"
-                        rules={[
-                            {
-                                type: 'email',
-                                message: '邮箱格式不正确!',
-                            },
-                            {
-                                required: true,
-                                message: '请输入邮箱!',
-                            },
-                        ]}
-                    >
-                        <Input />
-                    </Form.Item>
-
-                    <Form.Item
-                        name="status"
-                        label="状态"
-                        hasFeedback
-                        rules={[{ required: true, message: '请选择状态！' }]}
-                    >
-                        <Select placeholder="请选择">
-                            <Select.Option value="0">无效</Select.Option>
-                            <Select.Option value="1">有效</Select.Option>
-                        </Select>
-                    </Form.Item>
-
-                    <Form.Item
-                        name="isAdmin"
-                        label="身份"
-                        hasFeedback
-                        rules={[{ required: true, message: '请选择身份！' }]}>
-                        <Select placeholder="请选择">
-                            <Select.Option value="0">超级管理员</Select.Option>
-                            <Select.Option value="1">普通管理员</Select.Option>
-                        </Select>
-                    </Form.Item>
-                </Form>
-            </Modal>
+            <CreateUserModal visible={visible} onCancel={handleOnCancel} userId={userId} action={action} />
         </Wrapper>
     );
 }

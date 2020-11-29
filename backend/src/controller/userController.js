@@ -112,6 +112,8 @@ class User {
             }
         });
 
+        
+
         if (!result) {
             ctx.body = {
                 code: 101,
@@ -129,14 +131,19 @@ class User {
 
 
     async userInfo(ctx) {
+        const uId = ctx.query.uId;
         const name = ctx.query.name;
         const userData = await UserModel.findOne({
             where: {
-                username: name
+                [Sequelize.Op.or]: [
+                    { username: name },
+                    { id: uId }
+                ]
             },
             attributes: { exclude: ['password'] }
         });
-        if (name) {
+
+        if (userData) {
             ctx.body = {
                 code: 0,
                 msg: 'success',
