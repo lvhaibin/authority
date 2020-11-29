@@ -40,7 +40,6 @@ export default function Register() {
 
     const onFinish = values => {
         register(values).then(res => {
-            console.log(res);
             if (res.status === 200 && res.data.code === 0) {
                 notification.success({
                     message: '注册成功！',
@@ -140,21 +139,6 @@ export default function Register() {
                 ]}
             >
                 <Input />
-            </Form.Item>
-
-            <Form.Item
-                label="身份"
-                name="profile"
-                rules={[{
-                    required: true,
-                    message: '请选择身份!'
-                }]}
-            >
-                <Select value="demand">
-                    <Select.Option value="admin">举办方</Select.Option>
-                    <Select.Option value="demand">需求方</Select.Option>
-                    <Select.Option value="supplier">供应商</Select.Option>
-                </Select>
             </Form.Item>
 
             <Form.Item {...tailFormItemLayout}>

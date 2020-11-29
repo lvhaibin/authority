@@ -19,6 +19,7 @@ import { clearCookies } from '@utils/cookieManage';
 const { Content, Sider, Header } = AntdLayout;
 
 const UserInfo = React.lazy(() => import('@component/User/UserInfo'));
+const UserManager = React.lazy(() => import('@component/User/UserManager'));
 
 export default function Dashboard() {
     const [collapsed, setCollapsed] = useState(false);
@@ -62,6 +63,9 @@ export default function Dashboard() {
                             <Menu.Item key="dashboard" icon={<HomeOutlined />}>
                                 <Link to="/">dashboard</Link>
                             </Menu.Item>
+                            <Menu.Item key="UserManager" icon={<HomeOutlined />}>
+                                <Link to="/user/list">用户管理</Link>
+                            </Menu.Item>
                         </Menu>
                     </Sider>
                     <AntdLayout>
@@ -72,6 +76,7 @@ export default function Dashboard() {
                                         <Route exact path="/" render={() => <Redirect to="/dashboard" />} />
                                         <Route exact path="/dashboard" render={() => <div>dashboard</div>} />
                                         <Route exact path="/user" component={UserInfo} />
+                                        <Route exact path="/user/list" component={UserManager} />
                                     </Switch>
                                 </React.Suspense>
                             </div>

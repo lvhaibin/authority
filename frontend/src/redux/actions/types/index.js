@@ -1,10 +1,7 @@
 const keyMirror = require('fbjs/lib/keyMirror');
+import generatorAction from '../generatorAction';
 
-const user =  {
-    FETCH_USER_REQUEST: null,
-    FETCH_USER_SUCCESS: null,
-    FETCH_USER_FAILURE: null
-}
+const user = generatorAction(['FETCH_USER', 'FETCH_USER_LIST', 'CREATE_USER']);
 
 const actions = Object.assign({}, user);
 

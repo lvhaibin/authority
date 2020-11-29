@@ -18,7 +18,7 @@ export default function UserInfo() {
     }, [dispatch])
 
     const userState = useSelector(state => state.get('user'));
-    const userName = userState.getIn(['data', 'name']);
+    const userName = userState.getIn(['data', 'username']);
     const phone = userState.getIn(['data', 'phone']);
     const loading = userState.get('loading');
 

@@ -35,25 +35,55 @@ module.exports = {
     optimization: {
         runtimeChunk: 'single',
         splitChunks: {
-            chunks: "all",
-            minSize: 30000,
-            minChunks: 1,
             cacheGroups: {
-                commons: {
-                    name: 'vendors0',
-                    chunks: 'all',
-                    minChunks: 2
+                reactBase: {
+                    name: 'reactBase',
+                    test: (module) => {
+                        return /react|redux|/.test(module.context);
+                    },
+                    chunks: 'initial',
+                    priority: 10,
                 },
-                vendors: {
-                    test: /react/,
-                    name: 'vendors1'
+                immutableBase: {
+                    name: 'immutableBase',
+                    test: (module) => {
+                        return /immutable/.test(module.context);
+                    },
+                    chunks: 'initial',
+                    priority: 10,
                 },
-                moment: {
-                    test: /moment/,
-                    name: 'vendors2'
+                momentBase: {
+                    name: 'momentBase',
+                    test: (module) => {
+                        return /moment/.test(module.context);
+                    },
+                    chunks: 'initial',
+                    priority: 10,
                 },
-                default: false
-            }
+                lodashBase: {
+                    name: 'lodashBase',
+                    test: (module) => {
+                        return /lodash/.test(module.context);
+                    },
+                    chunks: 'initial',
+                    priority: 10,
+                },
+                antdBase: {
+                    name: 'lantdBase',
+                    test: (module) => {
+                        return /antd|@ant-design\/icons/.test(module.context);
+                    },
+                    chunks: 'initial',
+                    priority: 10,
+                },
+                common: {
+                    name: 'common',
+                    chunks: 'initial',
+                    priority: 2,
+                    minChunks: 2,
+                    reuseExistingChunk: true
+                },
+            },
         },
     },
 

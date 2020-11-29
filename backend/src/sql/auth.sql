@@ -10,7 +10,6 @@ CREATE TABLE `user`(
    `isAdmin` int(1) DEFAULT '1' COMMENT '0:超级管理员,1:普通管理员',
    `createdAt` datetime DEFAULT NULL COMMENT '创建时间',
    `updatedAt` datetime DEFAULT NULL COMMENT '更改时间',
-   `roleId` int(11) DEFAULT NULL,
    PRIMARY KEY(`id`),
    UNIQUE KEY`username`(`username`)
 ) ENGINE = InnoDB AUTO_INCREMENT = 8 DEFAULT CHARSET = utf8mb4 COMMENT = '管理员表';

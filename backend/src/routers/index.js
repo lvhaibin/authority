@@ -16,4 +16,14 @@ export const appRoutes = [
         method: 'post',
         action: userController.register
     },
+    {
+        path: '/api/v1.0/user/list',
+        method: 'get',
+        action: userController.list
+    },
+    {
+        path: '/api/v1.0/user/add',
+        method: 'post',
+        action: userController.add
+    },
 ]

@@ -4,7 +4,8 @@ import ActionTypes from '@actions/types';
 
 const initialState = fromJS({
   loading: true,
-  data: ''
+  data: '',
+  list: ''
 });
 
 export default handleActions(
@@ -13,9 +14,16 @@ export default handleActions(
       const { data } = action.payload;
       return state.set('loading', false).set('data', fromJS(data));
     },
-    [ActionTypes.FETCH_USER_FAILURE]: (state, action) => {
-      const { data } = action.payload;
+    [ActionTypes.FETCH_USER_FAILURE]: (state) => {
       return state.set('loading', false).set('data', '');
+    },
+
+    [ActionTypes.FETCH_USER_LIST_SUCCESS]: (state, action) => {
+      const { data } = action.payload;
+      return state.set('loading', false).set('list', fromJS(data));
+    },
+    [ActionTypes.FETCH_USER_LIST_FAILURE]: (state) => {
+      return state.set('loading', false).set('list', '');
     }
   },
   initialState
