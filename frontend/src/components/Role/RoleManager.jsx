@@ -1,54 +1,38 @@
 import React, { useState, useEffect } from 'react';
 import { Table, Button, Skeleton } from 'antd';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchUserListRequest} from '@actions/user';
-import UserModal from '@component/User/UserModal';
+import { fetchRoleListRequest} from '@actions/role';
+import RoleModal from '@component/Role/RoleModal';
 import styled from 'styled-components';
 
 const Wrapper = styled.div`
     padding: 30px;
 `;
 
-export default function UserManager() {
+export default function RoleManager() {
     const dispatch = useDispatch();
     const [current, setCurrent] = useState(1);
     const [pageSize] = useState(10);
     const [visible, setVisible] = useState(false);
-    const [userId, setUserId] = useState('');
-    const [action, setAction] = useState('create');
+    // const [userId, setUserId] = useState('');
+    // const [action, setAction] = useState('create');
 
     const handleOnUpdate = (record) => {
-        setUserId(record.id);
-        setAction('update');
+        // setUserId(record.id);
+        // setAction('update');
         setVisible(true);
     }
 
     const columns = [
         {
-            title: '用户名',
-            dataIndex: 'username',
-            key: 'username',
+            title: '角色名',
+            dataIndex: 'title',
+            key: 'title',
         },
         {
-            title: '手机',
-            dataIndex: 'phone',
-            key: 'phone',
-        },
-        {
-            title: '邮箱',
-            dataIndex: 'email',
-            key: 'email',
-        },
-        {
-            title: '身份',
-            dataIndex: 'isAdmin',
-            key: 'isAdmin',
-            render: (text, row, index) => {
-                if (row.isAdmin === 0) {
-                    return '超级管理员'
-                }
-                return '普通成员'
-            }
+            title: '描述',
+            dataIndex: 'description',
+            key: 'description',
         },
         {
             title: '状态',
@@ -84,7 +68,7 @@ export default function UserManager() {
             width: 100,
             render: (text, record) => {
                 return (
-                    <a onClick={handleOnUpdate.bind(this, record)}>更新</a>
+                    <a onClick={(record) => { handleOnUpdate(record) }}>更新</a>
                 );
             },
           },
@@ -96,11 +80,11 @@ export default function UserManager() {
 
 
     const loadData = (page, size) => {
-        dispatch(fetchUserListRequest({ page, size }));
+        dispatch(fetchRoleListRequest({ page, size }));
     }
 
     const openModal = () => {
-        setAction('create');
+        // setAction('create');
         setVisible(true);
     }
 
@@ -116,10 +100,10 @@ export default function UserManager() {
         setCurrent(pagination.current);
     }
 
-    const userData = useSelector(state => state.get('user'));
-    const loading = userData.get('loading');
-    const count = userData.getIn(['list', 'data', 'count']);
-    const list = userData.getIn(['list', 'data','list']);
+    const roleData = useSelector(state => state.get('role'));
+    const loading = roleData.get('loading');
+    const count = roleData.getIn([ 'data', 'count']);
+    const list = roleData.getIn([ 'data','list']);
 
     return (
         <Wrapper>
@@ -133,7 +117,7 @@ export default function UserManager() {
                     onChange={tableOnChange}
                 />
             </Skeleton>
-            <UserModal visible={visible} onCancel={handleOnCancel} userId={userId} action={action} />
+            <RoleModal visible={visible} onCancel={handleOnCancel} />
         </Wrapper>
     );
 }

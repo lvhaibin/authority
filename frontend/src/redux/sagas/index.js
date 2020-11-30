@@ -1,5 +1,6 @@
 import { fork, all } from 'redux-saga/effects';
 import { watchFetchUser, watchFetchUserList, watchCreateUser } from './user';
+import { watchFetchRoleList, watchCreateRole } from './role';
 
 export default function* rootSaga() {
     try {
@@ -7,6 +8,8 @@ export default function* rootSaga() {
         fork(watchFetchUser),
         fork(watchFetchUserList),
         fork(watchCreateUser),
+        fork(watchFetchRoleList),
+        fork(watchCreateRole),
       ]);
     } catch (error) {
       console.log(error);

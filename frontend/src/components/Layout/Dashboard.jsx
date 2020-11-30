@@ -20,6 +20,7 @@ const { Content, Sider, Header } = AntdLayout;
 
 const UserInfo = React.lazy(() => import('@component/User/UserInfo'));
 const UserManager = React.lazy(() => import('@component/User/UserManager'));
+const RoleManager = React.lazy(() => import('@component/Role/RoleManager'));
 
 export default function Dashboard() {
     const [collapsed, setCollapsed] = useState(false);
@@ -66,6 +67,9 @@ export default function Dashboard() {
                             <Menu.Item key="UserManager" icon={<HomeOutlined />}>
                                 <Link to="/user/list">用户管理</Link>
                             </Menu.Item>
+                            <Menu.Item key="RoleManager" icon={<HomeOutlined />}>
+                                <Link to="/role/list">角色管理</Link>
+                            </Menu.Item>
                         </Menu>
                     </Sider>
                     <AntdLayout>
@@ -77,6 +81,7 @@ export default function Dashboard() {
                                         <Route exact path="/dashboard" render={() => <div>dashboard</div>} />
                                         <Route exact path="/user" component={UserInfo} />
                                         <Route exact path="/user/list" component={UserManager} />
+                                        <Route exact path="/role/list" component={RoleManager} />
                                     </Switch>
                                 </React.Suspense>
                             </div>

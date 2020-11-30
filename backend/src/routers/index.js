@@ -1,35 +1,4 @@
-import userController from '../controller/userController.js';
+import { userRoutes } from './userRoute.js';
+import { roleRoutes } from './roleRoute.js';
 
-export const appRoutes = [
-    {
-        path: '/api/v1.0/user',
-        method: 'get',
-        action: userController.userInfo
-    },
-    {
-        path: '/api/v1.0/login',
-        method: 'post',
-        action: userController.login
-    },
-    {
-        path: '/api/v1.0/register',
-        method: 'post',
-        action: userController.register
-    },
-    {
-        path: '/api/v1.0/user/list',
-        method: 'get',
-        action: userController.list
-    },
-    {
-        path: '/api/v1.0/user/add',
-        method: 'post',
-        action: userController.add
-    },
-
-    {
-        path: '/api/v1.0/user/update',
-        method: 'post',
-        action: userController.update
-    },
-]
+export const appRoutes = [...userRoutes, ...roleRoutes];
