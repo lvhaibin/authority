@@ -2,7 +2,7 @@ import sequelize from '../connection/sequelize.js';
 import Sequelize from 'sequelize';
 const { DataTypes } = Sequelize;
 
-const permissionModel = sequelize.define('permission', {
+const PermissionModel = sequelize.define('permission', {
     id: {
         type: DataTypes.UUID,
         primaryKey: true,
@@ -35,4 +35,4 @@ const permissionModel = sequelize.define('permission', {
     }
 });
 
-export default permissionModel;
+export default PermissionModel;

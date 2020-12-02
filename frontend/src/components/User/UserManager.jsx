@@ -84,7 +84,7 @@ export default function UserManager() {
             width: 100,
             render: (text, record) => {
                 return (
-                    <a onClick={handleOnUpdate.bind(this, record)}>更新</a>
+                    <a onClick={() => {handleOnUpdate(record)}}>更新</a>
                 );
             },
           },
