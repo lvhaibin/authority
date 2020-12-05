@@ -13,7 +13,6 @@ const roleModel = sequelize.define('role', {
     },
     description: {
         type: DataTypes.STRING,
-        unique: true
     },
     status: {
         type: DataTypes.INTEGER,

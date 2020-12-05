@@ -23,10 +23,6 @@ const PermissionModel = sequelize.define('permission', {
         defaultValue: 1,
         comment: '0: 无效,1:有效'
     },
-    permissionId: {
-        type: DataTypes.INTEGER(11),
-        comment: '自关联id'
-    },
     createdAt: {
         type: DataTypes.DATEONLY
     },

@@ -23,7 +23,6 @@ CREATE TABLE `permission` (
   `status` int(1) DEFAULT '1' COMMENT '0:无效,1:有效',
   `createdAt` datetime DEFAULT NULL COMMENT '创建时间',
   `updatedAt` datetime DEFAULT NULL COMMENT '更改时间',
-  `permissionId` int(11) DEFAULT NULL COMMENT '自关联id',
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`)
 ) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COMMENT='路由表';

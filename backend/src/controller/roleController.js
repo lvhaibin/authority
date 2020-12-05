@@ -36,7 +36,7 @@ class Role {
                 title,
             }
         });
-        const date = moment().format('YYYY/MM/DD');
+        const date = moment(new Date(), 'YYYY/MM/DD')
         if (roleData) {
             ctx.body = {
                 code: 101,

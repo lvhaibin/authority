@@ -30,29 +30,40 @@ class Permission {
     }
 
     async add(ctx) {
-        const { title, type, name, status = 1, permissionId } = ctx.request.body;
-        const [, created] = await PermissionModel.findOrCreate({
-            where: { title },
-            defaults: {
-                type,
+        const { title, type, name, status = 1 } = ctx.request.body;
+        const roleData = await PermissionModel.findOne({
+            where: {
                 name,
-                permissionId,
-                createdAt: date,
-                updatedAt: date,
-                status
             }
-        })
-        if (!created) {
+        });
+        const date = moment(new Date(), 'YYYY/MM/DD')
+        if (roleData) {
             ctx.body = {
                 code: 101,
-                msg: '添加失败！',
+                msg: '权限已存在！',
                 body: null
             }
         } else {
-            ctx.body = {
-                code: 0,
-                msg: 'success',
-                body: null,
+            const result = await PermissionModel.create({
+                title,
+                type,
+                name,
+                createdAt: date,
+                updatedAt: date,
+                status
+            })
+            if (!result) {
+                ctx.body = {
+                    code: 101,
+                    msg: '添加失败！',
+                    body: null
+                }
+            } else {
+                ctx.body = {
+                    code: 0,
+                    msg: 'success',
+                    body: null,
+                }
             }
         }
     }

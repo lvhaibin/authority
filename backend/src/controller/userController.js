@@ -90,7 +90,7 @@ class User {
 
     async update(ctx) {
         const { username, phone, email, avatar, status, isAdmin, id } = ctx.request.body;
-        const date = moment().format('YYYY/MM/DD');
+        const date = moment(new Date(), 'YYYY/MM/DD');
         if (!id) {
             ctx.body = {
                 code: 101,
