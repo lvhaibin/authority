@@ -1,5 +1,8 @@
 import sequelize from '../connection/sequelize.js';
 import Sequelize from 'sequelize';
+import UserModel from './userModel.js';
+import roleModel from './roleModel.js';
+
 const { DataTypes } = Sequelize;
 
 const userRoleModel = sequelize.define('user_role', {
@@ -20,5 +23,9 @@ const userRoleModel = sequelize.define('user_role', {
         type: DataTypes.DATEONLY
     }
 });
+
+// A.belongsToMany(B, { through: 'C' }); // A 属于多个 B , 通过联结表 C
+
+UserModel.belongsToMany(roleModel, { through: 'userRoleModel' });
 
 export default userRoleModel;

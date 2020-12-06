@@ -14,7 +14,7 @@ app.use(koaBody())
     .use(KoaJwt({
         secret: 'rbac_secret',
     }).unless({
-        path: [/api\/v1.0\/login/, /api\/v1.0\/register/]
+        path: [/api\/v1.0\/login/, /api\/v1.0\/register/, /api\/v1.0\/user\/role\/list/]
     })).use((ctx, next) => {
         if (ctx.header && ctx.header.authorization) {
             const parts = ctx.header.authorization.split(' ');

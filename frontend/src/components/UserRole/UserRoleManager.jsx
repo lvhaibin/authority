@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { Table, Button, Skeleton } from 'antd';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchRoleListRequest} from '@actions/role';
-import RoleModal from '@component/Role/RoleModal';
+import { fetchUserRoleListRequest} from '@actions/userRole';
+import UserRoleModal from '@component/UserRole/UserRoleModal';
 import styled from 'styled-components';
 
 const Wrapper = styled.div`
     padding: 30px;
 `;
 
-export default function RoleManager() {
+export default function UserRoleManager() {
     const dispatch = useDispatch();
     const [current, setCurrent] = useState(1);
     const [pageSize] = useState(10);
@@ -21,29 +21,14 @@ export default function RoleManager() {
 
     const columns = [
         {
-            title: '角色名',
+            title: '用户',
+            dataIndex: 'username',
+            key: 'username',
+        },
+        {
+            title: '角色',
             dataIndex: 'title',
             key: 'title',
-        },
-        {
-            title: '描述',
-            dataIndex: 'description',
-            key: 'description',
-        },
-        {
-            title: '状态',
-            dataIndex: 'status',
-            key: 'status',
-            render: (text, row, index) => {
-                if (row.status === 0) {
-                    return (
-                        <span style={{color: 'red'}}>无效</span>
-                    );
-                }
-                return (
-                    <span style={{ color: 'green' }}>有效</span>
-                );
-            }
         },
         {
             title: '创建时间',
@@ -76,10 +61,11 @@ export default function RoleManager() {
 
 
     const loadData = (page, size) => {
-        dispatch(fetchRoleListRequest({ page, size }));
+        dispatch(fetchUserRoleListRequest({ page, size }));
     }
 
     const openModal = () => {
+        // setAction('create');
         setVisible(true);
     }
 
@@ -95,10 +81,10 @@ export default function RoleManager() {
         setCurrent(pagination.current);
     }
 
-    const roleData = useSelector(state => state.get('role'));
-    const loading = roleData.get('loading');
-    const count = roleData.getIn([ 'data', 'count']);
-    const list = roleData.getIn([ 'data','list']);
+    const userRoleData = useSelector(state => state.get('userRole'));
+    const loading = userRoleData.get('loading');
+    const count = userRoleData.getIn([ 'data', 'count']);
+    const list = userRoleData.getIn([ 'data','list']);
 
     return (
         <Wrapper>
@@ -112,7 +98,7 @@ export default function RoleManager() {
                     onChange={tableOnChange}
                 />
             </Skeleton>
-            <RoleModal visible={visible} onCancel={handleOnCancel} />
+            <UserRoleModal visible={visible} onCancel={handleOnCancel} />
         </Wrapper>
     );
 }

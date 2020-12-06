@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Modal, Select, Form, Input, message, Spin } from 'antd';
 import { useDispatch } from 'react-redux';
-import { createUserRequest } from '@actions/user';
-import { userUpdate, userInfo } from '@request/user';
+import { userUpdate, userInfo, userAdd } from '@request/user';
 import { fetchUserListRequest} from '@actions/user';
 
 const layout = {
@@ -10,7 +9,7 @@ const layout = {
     wrapperCol: { span: 20 },
 };
 
-export default function CreateUserModal(props) {
+export default function UserModal(props) {
     const dispatch = useDispatch();
     const { visible, onCancel, userId, action } = props;
     const [loading, setLoading] = useState(false);
@@ -23,21 +22,33 @@ export default function CreateUserModal(props) {
                 setLoading(false);
             })
         }
-    }, [userId])
+    }, [userId]);
+
+    const refreshData = () => {
+        dispatch(
+            fetchUserListRequest({
+            page: 1,
+            size: 10
+            })
+        );
+        onCancel && onCancel();
+        form.setFieldsValue();
+    }
 
     const handleSubmit = () => {
         form.validateFields().then((values) => {
             if (action === 'create') {
-                dispatch(createUserRequest(values))
+                userAdd(values).then(() => {
+                    refreshData();
+                }).catch(() => {
+                    message.error({
+                        content: '操作失败！'
+                    })
+                });
             } else {
                 values.id = userId;
                 userUpdate(values).then(() => {
-                    dispatch(
-                        fetchUserListRequest({
-                            page: 1,
-                            size: 10
-                        })
-                    );
+                    refreshData();
                 });
             }
         }).catch(() => {
@@ -47,7 +58,6 @@ export default function CreateUserModal(props) {
 
     const handleOk = () => {
         handleSubmit();
-        onCancel && onCancel();
     }
 
     const handleCancel = () => {

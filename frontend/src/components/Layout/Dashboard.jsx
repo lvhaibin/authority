@@ -22,6 +22,8 @@ const UserInfo = React.lazy(() => import('@component/User/UserInfo'));
 const UserManager = React.lazy(() => import('@component/User/UserManager'));
 const RoleManager = React.lazy(() => import('@component/Role/RoleManager'));
 const PermissionManager = React.lazy(() => import('@component/Permission/PermissionManager'));
+const UserRoleManager = React.lazy(() => import('@component/UserRole/UserRoleManager'));
+
 
 export default function Dashboard() {
     const [collapsed, setCollapsed] = useState(false);
@@ -74,6 +76,9 @@ export default function Dashboard() {
                             <Menu.Item key="PermissionManager" icon={<HomeOutlined />}>
                                 <Link to="/permission/list">权限列表</Link>
                             </Menu.Item>
+                            <Menu.Item key="UserRoleManager" icon={<HomeOutlined />}>
+                                <Link to="/user/role">用户角色</Link>
+                            </Menu.Item>
                         </Menu>
                     </Sider>
                     <AntdLayout>
@@ -87,6 +92,7 @@ export default function Dashboard() {
                                         <Route exact path="/user/list" component={UserManager} />
                                         <Route exact path="/role/list" component={RoleManager} />
                                         <Route exact path="/permission/list" component={PermissionManager} />
+                                        <Route exact path="/user/role" component={UserRoleManager} />
                                     </Switch>
                                 </React.Suspense>
                             </div>

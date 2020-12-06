@@ -42,11 +42,11 @@ CREATE TABLE `role` (
 -- user_role 用户和角色之间的映射关系
 CREATE TABLE `user_role` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '用户角色关系id',
-  `userId` int(11) NOT NULL AUTO_INCREMENT COMMENT '用户id',
+  `userId` int(11) NOT NULL COMMENT '用户id',
   `roleId` int(11) DEFAULT NULL COMMENT '角色id',
   `createdAt` datetime DEFAULT NULL COMMENT '创建时间',
   `updatedAt` datetime DEFAULT NULL COMMENT '更改时间',
-  PRIMARY KEY (`id`),
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COMMENT='角色表';
 
 -- role_permission 角色和权限之间的映射
